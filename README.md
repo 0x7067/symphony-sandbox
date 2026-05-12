@@ -11,4 +11,4 @@ the smaller value. The pipeline should:
 4. Simplify and review.
 5. Open a draft PR.
 
-Run tests locally: `node --test --experimental-strip-types src/`.
+Run tests locally: `pnpm test:unit` (the script wraps `node --test --experimental-strip-types`).
