@@ -5,11 +5,7 @@ export function add(a: number, b: number): number {
   return a + b;
 }
 
-/**
- * Returns the larger of two numbers.
- * BUG: returns the smaller. The pipeline should write a failing test that
- * exposes this, then fix the implementation.
- */
+/** Returns the larger of two numbers. */
 export function max(a: number, b: number): number {
   return a > b ? a : b;
 }
