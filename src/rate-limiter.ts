@@ -4,13 +4,28 @@ export interface RateLimiterOptions {
 }
 
 export class RateLimiter {
-  constructor(_opts: RateLimiterOptions) {
-    // TODO: implement
+  private readonly maxTokens: number;
+  private readonly refillPerMs: number;
+  private tokens: number;
+  private lastUpdate: number;
+
+  constructor(opts: RateLimiterOptions) {
+    this.maxTokens = opts.maxTokens;
+    this.refillPerMs = opts.refillPerMs;
+    this.tokens = opts.maxTokens;
+    this.lastUpdate = 0;
   }
 
   /** Try to consume `n` tokens. Returns true on success. */
-  tryConsume(_n: number, _nowMs: number): boolean {
-    // TODO: implement
+  tryConsume(n: number, nowMs: number): boolean {
+    const elapsed = nowMs - this.lastUpdate;
+    this.tokens = Math.min(this.maxTokens, this.tokens + elapsed * this.refillPerMs);
+    this.lastUpdate = nowMs;
+
+    if (this.tokens >= n) {
+      this.tokens -= n;
+      return true;
+    }
     return false;
   }
 }
