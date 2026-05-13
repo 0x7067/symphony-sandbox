@@ -1,3 +1,3 @@
 # symphony-sandbox
 
-Big-PR E2E target. string-utils.ts needs splitting + 2 new helpers.
+Big-PR E2E target. Needs a full event-bus library under src/bus/.
