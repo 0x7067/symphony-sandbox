@@ -1,3 +1,3 @@
 # symphony-sandbox
 
-Complex E2E target. `src/rate-limiter.ts` is a stub; needs a full token-bucket implementation. See the open issue for acceptance criteria.
+Complex E2E target. CSV parser to be extended to RFC 4180.
