@@ -1,3 +1,3 @@
 # symphony-sandbox
 
-E2E target. isHexColor regex anchor bug.
+E2E target. Loose-equality auth bug.
