@@ -12,40 +12,27 @@ function stablePercent(key: string): number {
 }
 
 function matchesRule<T>(rule: Rule<T>, ctx: EvalContext): boolean {
-  if (rule.kind === "percentage") {
-    return stablePercent(ctx.bucketKey) < rule.percentage;
-  }
-  if (rule.kind === "attribute") {
-    return ctx.attributes?.[rule.attribute] === rule.value;
-  }
-  if (rule.kind === "segment") {
-    const seg = getSegment(rule.segment);
-    return seg ? seg.predicate(ctx) : false;
-  }
+  if (rule.kind === "percentage") return stablePercent(ctx.bucketKey) < rule.percentage;
+  if (rule.kind === "attribute") return ctx.attributes?.[rule.attribute] === rule.value;
+  if (rule.kind === "segment") return getSegment(rule.segment)?.predicate(ctx) ?? false;
   return false;
 }
 
-function ruleValue<T>(rule: Rule<T>): T {
-  if (rule.kind === "attribute") return rule.returnValue;
-  return rule.value;
-}
-
 export function evaluate<T>(flag: Flag<T>, ctx: EvalContext): T {
-  const snapshot = { ...ctx };
   let matchedRuleId: string | null = null;
   let result: T = flag.defaultValue;
 
   for (const rule of flag.rules) {
     if (matchesRule(rule, ctx)) {
       matchedRuleId = rule.id;
-      result = ruleValue(rule);
+      result = rule.kind === "attribute" ? rule.returnValue : rule.value;
       break;
     }
   }
 
   appendAudit({
     flagName: flag.name,
-    contextSnapshot: snapshot,
+    contextSnapshot: { ...ctx },
     matchedRuleId,
     value: result,
     timestampMs: Date.now(),
