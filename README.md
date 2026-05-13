@@ -1,3 +1,3 @@
 # symphony-sandbox
 
-E2E target. `src/capitalize.ts` exports `capitalize(s)` that should uppercase the first character.
+E2E target. `src/even.ts` exports `isEven(n)` — broken on negatives.
