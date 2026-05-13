@@ -11,5 +11,5 @@ export function add(a: number, b: number): number {
  * exposes this, then fix the implementation.
  */
 export function max(a: number, b: number): number {
-  return a < b ? a : b;
+  return a < b ? b : a;
 }
