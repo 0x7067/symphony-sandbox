@@ -1,3 +1,3 @@
 # symphony-sandbox
 
-E2E target. `src/find.ts` exports `firstIndexOf` with an off-by-one bug.
+E2E target. `src/sum.ts` crashes on empty arrays.
