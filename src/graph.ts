@@ -40,46 +40,34 @@ export function topoSort(nodes: readonly string[], edges: readonly [string, stri
     }
   }
 
-  // If not all nodes were emitted, there's a cycle
+  // If not all nodes were emitted, there's a cycle — find it via DFS
   if (result.length !== nodes.length) {
-    // Find one cycle via DFS
-    const visited = new Set<string>();
-    const stack = new Set<string>();
-    const parent = new Map<string, string>();
+    const path: string[] = [];
+    const onPath = new Set<string>();
+    const done = new Set<string>();
 
     const findCycle = (n: string): string[] | null => {
-      visited.add(n);
-      stack.add(n);
+      onPath.add(n);
+      path.push(n);
       for (const m of adj.get(n) ?? []) {
-        if (!visited.has(m)) {
-          parent.set(m, n);
+        if (onPath.has(m)) return path.slice(path.indexOf(m));
+        if (!done.has(m)) {
           const cycle = findCycle(m);
           if (cycle) return cycle;
-        } else if (stack.has(m)) {
-          // Reconstruct cycle
-          const cycle: string[] = [m];
-          let cur = n;
-          while (cur !== m) {
-            cycle.unshift(cur);
-            cur = parent.get(cur)!;
-          }
-          cycle.unshift(m);
-          return cycle;
         }
       }
-      stack.delete(n);
+      onPath.delete(n);
+      path.pop();
+      done.add(n);
       return null;
     };
 
     for (const n of nodes) {
-      if (!visited.has(n)) {
+      if (!done.has(n)) {
         const cycle = findCycle(n);
         if (cycle) throw new CycleError(cycle);
       }
     }
-
-    // Fallback: shouldn't reach here, but throw with what we know
-    throw new CycleError([...nodes.filter(n => !new Set(result).has(n))]);
   }
 
   return result;
