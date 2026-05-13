@@ -1,3 +1,3 @@
 # symphony-sandbox
 
-Complex E2E target. topoSort has two bugs.
+Complex E2E target. debounce() leaks timers.
