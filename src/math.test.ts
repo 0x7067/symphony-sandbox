@@ -1,4 +1,3 @@
-// Symphony agent should add tests here that expose the max() bug.
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { add, max } from "./math.ts";
