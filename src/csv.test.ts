@@ -5,3 +5,7 @@ import { parseCsv } from "./csv.ts";
 test("parseCsv: simple unquoted row", () => {
   assert.deepEqual(parseCsv("a,b,c"), [["a", "b", "c"]]);
 });
+
+test("parseCsv: quoted field containing comma", () => {
+  assert.deepEqual(parseCsv('a,"b,c",d'), [["a", "b,c", "d"]]);
+});
