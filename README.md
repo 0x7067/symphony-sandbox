@@ -1,14 +1,5 @@
 # symphony-sandbox
 
-Tiny sandbox repo used to smoke-test the Symphony pipeline end-to-end.
-
-`src/math.ts` exports `add` and `max`. `max` has a subtle bug — it returns
-the smaller value. The pipeline should:
-
-1. Read the open issue describing the bug.
-2. Write a failing test for `max`.
-3. Fix the implementation.
-4. Simplify and review.
-5. Open a draft PR.
-
-Run tests locally: `pnpm test:unit` (the script wraps `node --test --experimental-strip-types`).
+Pipeline smoke target. `src/math.ts` exports `add` and `max`; `max` has a
+known bug (returns the smaller). The pipeline should write a failing test, fix
+it, simplify, review, and open a draft PR. Run tests with `pnpm test:unit`.
