@@ -1,3 +1,3 @@
 # symphony-sandbox
 
-Complex E2E target. FSM has no transition table validation.
+Big-PR E2E target. Needs a full event-bus library under src/bus/.
