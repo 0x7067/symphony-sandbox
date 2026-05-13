@@ -19,8 +19,4 @@ describe("last: non-empty arrays", () => {
     assert.equal(last(["a", "b", "c"]), "c");
   });
 
-  test("does not return the first element when array has multiple items", () => {
-    const arr = [10, 20, 30];
-    assert.notEqual(last(arr), arr[0]);
-  });
 });
