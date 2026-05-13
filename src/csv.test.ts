@@ -1,11 +1,6 @@
 import { test, describe } from "node:test";
 import assert from "node:assert/strict";
-import * as csv from "./csv.ts";
-
-const { parseCsv } = csv;
-// parseCsvWithHeader does not exist yet — will be undefined until implemented
-const parseCsvWithHeader: ((text: string) => Array<Record<string, string>>) | undefined =
-  (csv as any).parseCsvWithHeader;
+import { parseCsv, parseCsvWithHeader } from "./csv.ts";
 
 test("parseCsv: simple unquoted row", () => {
   assert.deepEqual(parseCsv("a,b,c"), [["a", "b", "c"]]);
