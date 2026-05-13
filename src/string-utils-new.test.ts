@@ -1,11 +1,7 @@
 import { test, describe } from "node:test";
 import assert from "node:assert/strict";
 
-// AC1: barrel re-export — all helpers must be importable from the new per-module barrel
-import { slug, kebab, camel, title } from "./string-utils/index.ts";
-
-// AC2 + AC3: new helpers exposed through the same barrel
-import { snake, pascal } from "./string-utils/index.ts";
+import { slug, kebab, camel, title, snake, pascal } from "./string-utils/index.ts";
 
 describe("barrel re-exports (AC1)", () => {
   test("slug via barrel", () => {
