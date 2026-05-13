@@ -1,3 +1,3 @@
 # symphony-sandbox
 
-Watcher-parallel E2E target.
+E2E target. `src/find.ts` exports `firstIndexOf` with an off-by-one bug.
