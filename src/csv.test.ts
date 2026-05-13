@@ -1,8 +1,6 @@
 import { test, describe } from "node:test";
 import assert from "node:assert/strict";
-import { parseCsv } from "./csv.ts";
-// @ts-ignore – parseCsvWithHeader will be added as part of the fix
-import { parseCsvWithHeader } from "./csv.ts";
+import { parseCsv, parseCsvWithHeader } from "./csv.ts";
 
 test("parseCsv: simple unquoted row", () => {
   assert.deepEqual(parseCsv("a,b,c"), [["a", "b", "c"]]);
