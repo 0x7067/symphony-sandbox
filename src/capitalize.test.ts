@@ -5,3 +5,7 @@ import { capitalize } from "./capitalize.ts";
 test("capitalize: empty string", () => {
   assert.equal(capitalize(""), "");
 });
+
+test("capitalize: first character is uppercased", () => {
+  assert.equal(capitalize("hello"), "Hello");
+});
