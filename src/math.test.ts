@@ -12,4 +12,5 @@ test("max: returns the larger of two numbers", () => {
   assert.equal(max(3, 7), 7);
   assert.equal(max(7, 3), 7);
   assert.equal(max(5, 5), 5);
+  assert.equal(max(-5, -3), -3);
 });
