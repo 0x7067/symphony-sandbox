@@ -1,3 +1,3 @@
 # symphony-sandbox
 
-E2E target. fetchUserName picks the wrong field.
+E2E target. isHexColor regex anchor bug.
