@@ -16,13 +16,6 @@ export function appendAuditEntry(entry: AuditEntry): void {
   ring.push(entry);
 }
 
-/**
- * Returns the latest audit entries. If `limit` is provided, returns at most
- * that many entries from the end of the buffer (newest last).
- */
 export function auditLog(limit?: number): AuditEntry[] {
-  if (limit === undefined) {
-    return ring.slice();
-  }
-  return ring.slice(-limit);
+  return limit === undefined ? ring.slice() : ring.slice(-limit);
 }

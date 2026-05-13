@@ -1,7 +1,6 @@
 import type { Flag } from "./types.ts";
 
 export class FlagRegistry {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   private readonly flags = new Map<string, Flag<any>>();
 
   register<T>(flag: Flag<T>): void {

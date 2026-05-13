@@ -28,7 +28,6 @@ export function parseRegistry(json: string): FlagRegistry {
 
   const registry = new FlagRegistry();
   for (const flag of obj.flags) {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     registry.register(flag as any);
   }
   return registry;
