@@ -1,3 +1,3 @@
 # symphony-sandbox
 
-Big-PR E2E target. string-utils.ts needs splitting + 2 new helpers.
+Big-PR (20-file) E2E target. Needs a full feature-flags library under src/flags/. See open issue for the surface.
