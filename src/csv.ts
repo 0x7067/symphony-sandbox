@@ -1,4 +1,4 @@
-// Current parser handles quoted commas but NOT escaped quotes or headers.
+// Handles quoted commas, RFC 4180 escaped quotes ("" → "), and headers.
 export function parseCsvLine(line: string): string[] {
   const fields: string[] = [];
   let current = "";
@@ -6,7 +6,13 @@ export function parseCsvLine(line: string): string[] {
   for (let i = 0; i < line.length; i++) {
     const ch = line[i];
     if (ch === '"') {
-      inQuotes = !inQuotes;
+      if (inQuotes && line[i + 1] === '"') {
+        // RFC 4180: escaped quote — two double-quotes inside a quoted field
+        current += '"';
+        i++;
+      } else {
+        inQuotes = !inQuotes;
+      }
     } else if (ch === "," && !inQuotes) {
       fields.push(current);
       current = "";
@@ -20,4 +26,13 @@ export function parseCsvLine(line: string): string[] {
 
 export function parseCsv(text: string): string[][] {
   return text.split(/\r?\n/).filter(Boolean).map(parseCsvLine);
+}
+
+export function parseCsvWithHeader(text: string): Array<Record<string, string>> {
+  const rows = parseCsv(text);
+  if (rows.length === 0) return [];
+  const [headers, ...dataRows] = rows;
+  return dataRows.map((row) =>
+    Object.fromEntries(headers.map((key, i) => [key, row[i] ?? ""]))
+  );
 }
