@@ -3,8 +3,8 @@ import type { Listener } from "./listener.ts";
 export type Unsubscribe = () => void;
 
 export class EventBus<EM extends Record<string, unknown>> {
-  private readonly _listeners: Map<keyof EM, Set<Listener<EM, keyof EM>>> =
-    new Map();
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  private readonly _listeners = new Map<keyof EM, Set<(p: any) => void>>();
 
   lastEmitErrors: unknown[] = [];
 
@@ -14,18 +14,15 @@ export class EventBus<EM extends Record<string, unknown>> {
       handlers = new Set();
       this._listeners.set(event, handlers);
     }
-    handlers.add(handler as Listener<EM, keyof EM>);
-    return () => {
-      handlers!.delete(handler as Listener<EM, keyof EM>);
-    };
+    handlers.add(handler);
+    return () => handlers!.delete(handler);
   }
 
   once<K extends keyof EM>(event: K, handler: Listener<EM, K>): Unsubscribe {
-    const wrapper: Listener<EM, K> = (payload) => {
+    const unsub = this.on(event, (payload) => {
       unsub();
       handler(payload);
-    };
-    const unsub = this.on(event, wrapper);
+    });
     return unsub;
   }
 
@@ -35,7 +32,7 @@ export class EventBus<EM extends Record<string, unknown>> {
     if (!handlers) return;
     for (const handler of [...handlers]) {
       try {
-        (handler as Listener<EM, K>)(payload);
+        handler(payload);
       } catch (err) {
         this.lastEmitErrors.push(err);
       }
