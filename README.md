@@ -1,3 +1,3 @@
 # symphony-sandbox
 
-E2E target. gcd negative handling.
+Watcher-parallel E2E target.
