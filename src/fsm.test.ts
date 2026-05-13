@@ -23,20 +23,17 @@ test("FiniteStateMachine: constructs without throwing", () => {
 
 test("FiniteStateMachine: .state getter returns initial state", () => {
   const m = new FiniteStateMachine<S, E>("idle", transitions);
-  // @ts-ignore — state getter not yet implemented
   assert.equal(m.state, "idle");
 });
 
 test("FiniteStateMachine: valid transition updates .state", () => {
   const m = new FiniteStateMachine<S, E>("idle", transitions);
   m.transition("start");
-  // @ts-ignore — state getter not yet implemented
   assert.equal(m.state, "running");
 });
 
 test("FiniteStateMachine: invalid transition throws InvalidTransitionError", () => {
   const m = new FiniteStateMachine<S, E>("idle", transitions);
-  // "finish" has no entry for "idle" — must throw
   assert.throws(
     () => m.transition("finish"),
     (err: unknown) => {
@@ -49,20 +46,16 @@ test("FiniteStateMachine: invalid transition throws InvalidTransitionError", () 
 
 test("FiniteStateMachine: canTransition returns true for valid event", () => {
   const m = new FiniteStateMachine<S, E>("idle", transitions);
-  // @ts-ignore — canTransition not yet implemented
   assert.equal(m.canTransition("start"), true);
 });
 
 test("FiniteStateMachine: canTransition returns false for invalid event", () => {
   const m = new FiniteStateMachine<S, E>("idle", transitions);
-  // @ts-ignore — canTransition not yet implemented
   assert.equal(m.canTransition("finish"), false);
 });
 
 test("FiniteStateMachine: canTransition does not mutate state", () => {
   const m = new FiniteStateMachine<S, E>("idle", transitions);
-  // @ts-ignore — canTransition not yet implemented
   m.canTransition("start");
-  // @ts-ignore — state getter not yet implemented
   assert.equal(m.state, "idle");
 });
